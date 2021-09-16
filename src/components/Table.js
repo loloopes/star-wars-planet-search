@@ -12,15 +12,16 @@ function Table() {
       <thead>
         <tr>{colHead}</tr>
       </thead>
-      { planets.map(((planet, index) => (
-        <tr key={ index }>
-          {Object.values(planet).map((info) => (
-            <td key={ info }>
-              {info}
-            </td>
-          ))}
-        </tr>))) }
-      <tbody />
+      <tbody>
+        { planets.map(((planet, index) => (
+          <tr key={ index }>
+            {Object.values(planet).map((info) => (
+              <td key={ info }>
+                {info}
+              </td>
+            ))}
+          </tr>))) }
+      </tbody>
     </table>
   );
 }

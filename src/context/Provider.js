@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import propTypes from 'prop-types';
 import Context from './Context';
 
 function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filters, setFilters] = useState({
+    filterByName: { name: '' },
+  });
 
   function fetchPlanets() {
     fetch('https://swapi-trybe.herokuapp.com/api/planets/')
@@ -19,6 +23,8 @@ function Provider({ children }) {
 
   const contextData = {
     planets,
+    filters,
+    setFilters,
   };
 
   return (
@@ -27,5 +33,9 @@ function Provider({ children }) {
     </Context.Provider>
   );
 }
+
+Provider.propTypes = {
+  children: propTypes.node.isRequired,
+};
 
 export default Provider;
