@@ -7,6 +7,7 @@ function Provider({ children }) {
   const [filters, setFilters] = useState({
     filterByName: { name: '' },
   });
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   function fetchPlanets() {
     fetch('https://swapi-trybe.herokuapp.com/api/planets/')
@@ -25,6 +26,8 @@ function Provider({ children }) {
     planets,
     filters,
     setFilters,
+    filteredPlanets,
+    setFilteredPlanets,
   };
 
   return (

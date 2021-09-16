@@ -1,15 +1,12 @@
 import React from 'react';
 import './App.css';
 import Provider from './context/Provider';
-import Table from './components/Table';
-import InputSearch from './components/InputSearch';
+import Main from './components/Main';
 
 function App() {
   return (
     <Provider>
-      <span>Hello, App!</span>
-      <Table />
-      <InputSearch />
+      <Main />
     </Provider>
   );
 }
