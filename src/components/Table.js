@@ -1,16 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Context from '../context/Context';
 
 function Table() {
-  const { planets, filteredPlanets, filters, setFilteredPlanets } = useContext(Context);
+  const { planets, filteredPlanets } = useContext(Context);
 
   const colHead = planets.length > 0
   && Object.keys(planets[0]).map((column, index) => <th key={ index }>{column}</th>);
-
-  useEffect(() => {
-    setFilteredPlanets(planets
-      .filter((planet) => planet.name.includes(filters.filterByName.name)));
-  }, [filters.filterByName.name, planets, setFilteredPlanets]);
 
   return (
     <table>
