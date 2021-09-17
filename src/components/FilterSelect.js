@@ -25,7 +25,10 @@ function FilterSelect() {
   // }
 
   const addFilter = () => {
-    setFilters({ ...filters, filterByNumericValues: [...filterByNumericValues, { column, comparison, value }] });
+    setFilters({
+      ...filters,
+      filterByNumericValues: [...filterByNumericValues, { column, comparison, value }],
+    });
   };
 
   // function filterPlanets() {
@@ -59,36 +62,46 @@ function FilterSelect() {
   // };
   // logica desenvolvida com ajuda do Felipe Ventorim
   useEffect(() => {
+    console.log('test');
     setFilteredPlanets(
       !filterByNumericValues.length
         ? filteredPlanets
-        : filterByNumericValues.reduce((acc, { column: coluna, comparison: compa, value: valor}) => (
-          acc.filter((planet) => {
-            switch (compa) {
-            case 'maior que':
-              return Number(planet[coluna]) > Number(valor);
-            case 'menor que':
-              return Number(planet[coluna]) < Number(valor);
-            case 'igual a':
-              return Number(planet[coluna]) === Number(valor);
-            default:
-              return false;
-            }
-          })
-        ), planets),
+        : filterByNumericValues
+          .reduce((acc, { column: coluna, comparison: compa, value: valor }) => (
+            acc.filter((planet) => {
+              switch (compa) {
+              case 'maior que':
+                return Number(planet[coluna]) > Number(valor);
+              case 'menor que':
+                return Number(planet[coluna]) < Number(valor);
+              case 'igual a':
+                return Number(planet[coluna]) === Number(valor);
+              default:
+                return false;
+              }
+            })
+          ), planets),
     );
   }, [filterByNumericValues]);
 
   return (
     <>
-      <select name="column" onChange={ ({ target }) => setColumn(target.value) } data-testid="column-filter">
+      <select
+        name="column"
+        onChange={ ({ target }) => setColumn(target.value) }
+        data-testid="column-filter"
+      >
         <option>population</option>
         <option>orbital_period</option>
         <option>diameter</option>
         <option>rotation_period</option>
         <option>surface_water</option>
       </select>
-      <select name="comparison" onChange={ ({ target }) => setComparison(target.value) } data-testid="comparison-filter">
+      <select
+        name="comparison"
+        onChange={ ({ target }) => setComparison(target.value) }
+        data-testid="comparison-filter"
+      >
         <option>maior que</option>
         <option>menor que</option>
         <option>igual a</option>
@@ -100,8 +113,7 @@ function FilterSelect() {
         name="value"
       />
       <button
-        onClick={ (event) => {
-          event.preventDefault();
+        onClick={ () => {
           addFilter();
         } }
         type="button"
