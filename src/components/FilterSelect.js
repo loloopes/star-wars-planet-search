@@ -6,9 +6,15 @@ function FilterSelect() {
     setFilters,
     setFilteredPlanets,
     planets,
-    filteredPlanets } = useContext(Context);
+    filteredPlanets,
+  } = useContext(Context);
 
   const { filterByNumericValues } = filters;
+
+  const options1 = [
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+  ];
+  const options2 = ['maior que', 'menor que', 'igual a'];
 
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
@@ -22,6 +28,24 @@ function FilterSelect() {
   //         [target.name]: target.value,
   //       },
   //     ] });
+  // }
+
+  // logica com a ajuda do Guilherme Costa =)
+  const removeUsedOptions = () => {
+    filterByNumericValues.forEach(({ column: coluna }) => {
+      options1.splice(options1.indexOf(coluna), 1);
+    });
+    return options1;
+  };
+
+  // function handleColumnChange = ({target}) => {
+  //   setFilters({
+  //     ...filters,
+  //     filterByNumericValues: [{
+  //       ...filterByNumericValues,
+  //       column: target.value,
+  //     }]
+  //   })
   // }
 
   const addFilter = () => {
@@ -91,20 +115,15 @@ function FilterSelect() {
         onChange={ ({ target }) => setColumn(target.value) }
         data-testid="column-filter"
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {removeUsedOptions()
+          .map((option) => <option key={ option } value={ option }>{option}</option>)}
       </select>
       <select
         name="comparison"
         onChange={ ({ target }) => setComparison(target.value) }
         data-testid="comparison-filter"
       >
-        <option>maior que</option>
-        <option>menor que</option>
-        <option>igual a</option>
+        {options2.map((option) => <option key={ option }>{option}</option>)}
       </select>
       <input
         onChange={ ({ target }) => setValue(target.value) }
@@ -115,6 +134,7 @@ function FilterSelect() {
       <button
         onClick={ () => {
           addFilter();
+          removeUsedOptions();
         } }
         type="button"
         data-testid="button-filter"
