@@ -6,13 +6,7 @@ function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filters, setFilters] = useState({
     filterByName: { name: '' },
-    filterByNumericValues: [
-      {
-        column: 'population',
-        comparison: 'maior que',
-        value: 0,
-      },
-    ],
+    filterByNumericValues: [],
   });
   const [filteredPlanets, setFilteredPlanets] = useState([]);
 
